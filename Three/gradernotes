@@ -1,0 +1,43 @@
+I believe everything works perfectly under all conditions
+I wrote the p3helper.c code myself
+
+My algorithm for p3helper.c is very heavily inspired by the Reader-Writer problem.
+
+The basic concept is as follows:
+
+        1. Whether you are a jogger or a shooter, you get access to your registry. Get yourself counted (jogger_count or shooter_count), revoke access to the registry and then you are allowed you go in the gym.
+        2. There is a special case where in, if you are the first of your group to enter the gym, you block the gym access for other group.
+        3. When leaving the gym, you get access to your registry, remove yourself from the count, revoke access to the registry.
+        4. There is a special case where in, if you are the last of your groiup to leave the gym, you unblok the gym access for other group.
+
+Overall Explanation:
+
+        Gobal variables: 
+        * Semaphores jogger, shooter and gym_floor
+        * Integer jogger_count and shooter_count
+
+        I used the Semaphores as a "registry" of tracking who is or is not in the gym.
+
+Algorithm:
+
+        For entering the gym:
+                if(kind == JOGGER){
+                        
+                                Check if gym floor occupied or not
+                                Grant access to jogger's "registry"
+                                jogger_count = jogger_count + 1;
+                                If first jogger, block access to gym_floor for shooters
+                                Revoke access to jogger's "registry"
+                Vice Versa for Shooters,
+
+        For leaving the gym:
+
+                if(kind == JOGGER){
+                                
+                                // Joggers jogged, now they want to leave
+                                
+                                Grant access to jogger's "registry"
+                                jogger_count = jogger_count - 1;
+                                If last jogger, allow shooters to access the gym_floor
+                                Revoke access to jogger's "registry"
+                Vice Versa for Shooters

@@ -1,0 +1,61 @@
+I wrote this code myself.
+There are errors on running input55 and input 10 caused by something going wrong in my Hereis code. I honestly don't know what is going wrong despite diligently checking my code.
+Splint also dies when run on p2 for reasons unkown to me and Professor Carroll. I was promised +1 point by Professor Carroll during office hours because Splint was dying on a random statement.
+
+This code is heavily dervied from the following files in the ~cs570 directory:
+exec1.c, fork1.c, fork2.c, pipe.c, dup.c, dup2.c, sig.c, sighandler.c and arg.c
+
+The code is also heavily derived and inspired by the gracious hints given by the professor.
+
+The following man pages assisted me in my code:
+dup2(2), execvp(3), chdir(2), getenv(3), exit(3), fork(2), open(2), perror(3), wait(2), access(2), pipe(2), fflush(3), sigaction(2), signal(2), setpgid(2), getpgrp(2),and killpg(2)
+
+The following internet resources helped me in my code:
+strcmp:
+        https://www.tutorialspoint.com/c_standard_library/c_function_strcmp.htm
+
+The following is the psuedocode for my p2.c:
+
+#include "p2.h"
+Declarations of global variables and flags
+
+int parse(){
+        declaration of internal variables
+        for(;;){
+                Saving of the return values from getword to the buffer
+        }
+        
+        Parsing of the buffer{
+                Setting flags according to the metacharacters
+        }
+        Creation( technically filling of the existing array ) of a newArgv along with a newArgC
+}
+
+void myHandler(){}
+
+int main(){
+        declaration of internal variables
+        Signal catcher code
+        for(;;){
+                resetting of internal variables
+                prompt
+                exit conditions(syntax errors, EOF etc)
+                Code for implementing "cd" command
+                Code for implementing "environ" command
+                fflushes
+                Fork of a child{
+                        redirection setup
+                        if Pipeflag active, then do pipeing stuff like creation of Grandchildren
+                                Create Grandchild
+                                if more than 1 pipe
+                                        Create Great Grand Child
+                                        For loop
+                }parent code now{
+                        check for waitFlag, it true then wait for child
+                        else print the command and pid of child
+                }
+                killpg()
+                printf("p2 terminated")
+                exit(0)
+        }
+}
